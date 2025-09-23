@@ -1,5 +1,9 @@
 {
   "default": {
+    "bls12-381": {
+      "baseline": "1.0.0-wire",
+      "port-version": 0
+    },
     "bn256": {
       "baseline": "2.0.0",
       "port-version": 0
