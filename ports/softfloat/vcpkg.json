@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "Berkeley SoftFloat 3 - Software IEC/IEEE Floating-Point Arithmetic Package",
   "homepage": "https://github.com/Wire-Network/berkeley-softfloat-3",
-  "supports": "x86 | x64 | arm | arm64 | wasm32 | wasm64 | wasm",
+  "supports": "x86 | x64 | arm | arm64 | wasm32",
   "dependencies": [
     {
       "name": "vcpkg-cmake",
