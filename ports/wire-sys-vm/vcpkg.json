@@ -1,0 +1,29 @@
+{
+  "name": "wire-sys-vm",
+  "version": "5.2.0-rc1",
+  "description": "Wire VM for contract execution. Originally part of eos",
+  "homepage": "https://github.com/Wire-Network/wire-eos-vm",
+  "supports": "x86 | x64 | arm | arm64",
+  "dependencies": [
+    {
+      "name": "catch2",
+      "features": [
+        "no-posix-signals"
+      ]
+    },
+    "softfloat",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "softfloat-skip-install": {
+      "description": "Skip installing softfloat library"
+    }
+  }
+}

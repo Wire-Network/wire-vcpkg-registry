@@ -1,9 +1,7 @@
-message(NOTICE "VCPKG-SOFTFLOAT")
-message(STATUS "VCPKG-SOFTFLOAT")
 vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL https://github.com/Wire-Network/berkeley-softfloat-3
-    REF 703e38d9c24902b20ff7740eb19ab54b0d2e101e
+    REF 31f071938137b44d794665552d5b0092c1e10306
 )
 
 vcpkg_cmake_configure(
@@ -12,6 +10,10 @@ vcpkg_cmake_configure(
 )
 
 vcpkg_cmake_install()
+
+if(IS_DIRECTORY "${CURRENT_PACKAGES_DIR}/debug/include")
+    file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+endif()
 
 vcpkg_cmake_config_fixup(CONFIG_PATH "share/${PORT}" PACKAGE_NAME ${PORT})
 
