@@ -1,6 +1,8 @@
 set(BOOST_GIT_URL "https://github.com/boostorg/boost.git")
 set(BOOST_COMMIT 564e2ac16907019696cdaba8a93e3588ec596062)
 
+cmake_policy(SET CMP0116 OLD) #suppress warning about Boost::xxxx targets not being imported
+
 # FIND GIT EXECUTABLE
 find_program(GIT git REQUIRED)
 
@@ -45,8 +47,9 @@ file(COPY "${BOOST_CLONE_DIR}/" DESTINATION "${SOURCE_PATH}")
 vcpkg_cmake_configure(
   SOURCE_PATH ${SOURCE_PATH}
   OPTIONS
-  -DBoost_USE_MULTITHREADED=ON
-  -DBoost_USE_STATIC_LIBS=ON
+  # TODO: Not used? @jon
+  # -DBoost_USE_MULTITHREADED=ON
+  # -DBoost_USE_STATIC_LIBS=ON
   -DBOOST_EXCLUDE_LIBRARIES="mysql;cobalt"
   -DCMAKE_C_COMPILER=/usr/bin/gcc-10
   -DCMAKE_CXX_COMPILER=/usr/bin/g++-10
@@ -80,4 +83,12 @@ vcpkg_execute_required_process(
   LOGNAME post-install-cmake-boost-files
 )
 
-file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug)
+if(EXISTS ${CURRENT_PACKAGES_DIR}/debug/share)
+  file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/share)
+endif()
+if(EXISTS ${CURRENT_PACKAGES_DIR}/debug/include)
+  file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include)
+endif()
+if(EXISTS ${CURRENT_PACKAGES_DIR}/debug/lib/cmake)
+  file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/lib/cmake)
+endif()
