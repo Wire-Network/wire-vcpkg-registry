@@ -51,8 +51,6 @@ vcpkg_cmake_configure(
   # -DBoost_USE_MULTITHREADED=ON
   # -DBoost_USE_STATIC_LIBS=ON
   -DBOOST_EXCLUDE_LIBRARIES="mysql;cobalt"
-  -DCMAKE_C_COMPILER=/usr/bin/gcc-10
-  -DCMAKE_CXX_COMPILER=/usr/bin/g++-10
   -DBUILD_TESTING=OFF
 )
 
