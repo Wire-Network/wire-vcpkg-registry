@@ -4,7 +4,6 @@ vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
   URL https://github.com/AntelopeIO/bls12-381.git
   REF 6b718d127a2b6095593a85622b4e3f85c3fbbcf6
-  SHA512 6b718d127a2b6095593a85622b4e3f85c3fbbcf6
 )
 
 file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")

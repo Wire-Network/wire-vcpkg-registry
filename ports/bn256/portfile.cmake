@@ -4,7 +4,6 @@ vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
   URL https://github.com/Wire-Network/bn256.git
   REF 34c90583fba83f3dc385eab3415e61754aa309fc
-  SHA512 34c90583fba83f3dc385eab3415e61754aa309fc
 )
 
 file(COPY_FILE "${CMAKE_CURRENT_LIST_DIR}/bn256-CMakeLists.txt.cmake" "${SOURCE_PATH}/CMakeLists.txt")

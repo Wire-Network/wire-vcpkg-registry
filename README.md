@@ -46,8 +46,6 @@ vcpkg \
 
 Fix the formatting of all `port` manifests.
 
-> NOTE: This script is written for fish shell only
-
 ```sh
 # NOTE: This script is written for fish shell only
 for f in /data/shared/code/wire/wire-vcpkg-registry/ports/*/vcpkg.json
@@ -56,3 +54,10 @@ for f in /data/shared/code/wire/wire-vcpkg-registry/ports/*/vcpkg.json
 end
 ```
 
+```sh
+# NOTE: This script is written for bash or zsh
+for f in ports/*/vcpkg.json; do
+    echo "vcpkg: $f"
+    vcpkg format-manifest $f
+done
+```

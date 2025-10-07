@@ -8,7 +8,6 @@ vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL https://github.com/Wire-Network/libsodium.git
     REF abd3612f433b795a6ac31a386a75f8f26a479033
-    SHA512 abd3612f433b795a6ac31a386a75f8f26a479033
     HEAD_REF master
     # PATCHES
     #     001-mingw-i386.patch
