@@ -1,6 +1,7 @@
 {
   "name": "wire-sys-vm",
   "version": "5.2.0-rc1",
+  "port-version": 1,
   "description": "Wire VM for contract execution. Originally part of eos",
   "homepage": "https://github.com/Wire-Network/wire-eos-vm",
   "supports": "x86 | x64 | arm | arm64",
