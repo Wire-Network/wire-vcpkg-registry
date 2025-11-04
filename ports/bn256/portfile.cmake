@@ -3,7 +3,7 @@ vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
   URL https://github.com/Wire-Network/bn256.git
-  REF cbeb6821078c25fb6310d83d4b1222d2dc7e10ae
+  REF 88b32240b6362cac501fbec4d53021355722883f
 )
 
 file(COPY_FILE "${CMAKE_CURRENT_LIST_DIR}/bn256-CMakeLists.txt.cmake" "${SOURCE_PATH}/CMakeLists.txt")

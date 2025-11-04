@@ -1,6 +1,6 @@
 {
   "name": "bn256",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This library implements the bilinear group BN256 in the C++ language. It is based off of the cloudflare/bn256 implementation.",
   "homepage": "https://github.com/wire-network/bn256",
   "license": "MIT",
