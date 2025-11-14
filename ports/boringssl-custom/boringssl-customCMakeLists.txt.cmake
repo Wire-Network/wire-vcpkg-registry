@@ -6,20 +6,22 @@ add_compile_definitions(OPENSSL_EXPORT=1)
 target_compile_options(fipsmodule PRIVATE -Wno-error)
 target_compile_options(crypto PRIVATE -Wno-error)
 target_compile_options(decrepit PRIVATE -Wno-error)
+target_compile_options(ssl PRIVATE -Wno-error)
 
 #paranoia for when a dependent library depends on openssl (such as libcurl)
 set_target_properties(fipsmodule PROPERTIES C_VISIBILITY_PRESET hidden)
 set_target_properties(crypto PROPERTIES C_VISIBILITY_PRESET hidden)
 set_target_properties(decrepit PROPERTIES C_VISIBILITY_PRESET hidden)
+set_target_properties(ssl PROPERTIES C_VISIBILITY_PRESET hidden)
 
 add_library(boringssl INTERFACE)
-target_link_libraries(boringssl INTERFACE crypto decrepit)
+target_link_libraries(boringssl INTERFACE crypto decrepit ssl)
 target_include_directories(boringssl INTERFACE src/include)
 
 # avoid conflict with system lib
 set_target_properties(crypto PROPERTIES PREFIX libbs)
 
-install(TARGETS crypto decrepit fipsmodule
+install(TARGETS crypto decrepit fipsmodule ssl
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )

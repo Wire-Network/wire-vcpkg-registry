@@ -48,7 +48,7 @@ Fix the formatting of all `port` manifests.
 
 ```sh
 # NOTE: This script is written for fish shell only
-for f in /data/shared/code/wire/wire-vcpkg-registry/ports/*/vcpkg.json
+for f in $PWD/ports/*/vcpkg.json
     echo "vcpkg: $f"
     vcpkg format-manifest $f
 end

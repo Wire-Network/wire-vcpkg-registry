@@ -6,9 +6,11 @@ endif()
 include(CMakeFindDependencyMacro)
 find_dependency(Threads REQUIRED)
 
-if(NOT TARGET boringssl::crypto OR NOT TARGET boringssl::decrepit)
+if(NOT TARGET boringssl::crypto OR NOT TARGET boringssl::decrepit OR NOT TARGET boringssl::ssl)
+  set(BORINGSSL_LIBRARIES)
   add_library(boringssl::crypto UNKNOWN IMPORTED)
   add_library(boringssl::decrepit UNKNOWN IMPORTED)
+  add_library(boringssl::ssl UNKNOWN IMPORTED)
 
   if(NOT "@VCPKG_LIBRARY_LINKAGE@" STREQUAL "static")
     message(FATAL_ERROR "Only static linkage is supported for boringssl-custom")
@@ -39,6 +41,9 @@ if(NOT TARGET boringssl::crypto OR NOT TARGET boringssl::decrepit)
     )
     set_property(TARGET ${targetName} APPEND PROPERTY IMPORTED_CONFIGURATIONS "Release")
     set_target_properties(${targetName} PROPERTIES IMPORTED_LOCATION_RELEASE "${${targetShortName}_libPath}")
+    
+    list(APPEND BORINGSSL_LIBRARIES ${${targetShortName}_libPath})
+    
     find_library(
       ${targetShortName}_libPath_debug
       NAMES ${arg_set_target_libs_NAMES}
@@ -55,5 +60,6 @@ if(NOT TARGET boringssl::crypto OR NOT TARGET boringssl::decrepit)
 
   boringssl_set_target_libs(TARGET crypto NAMES libbscrypto bscrypto crypto)
   boringssl_set_target_libs(TARGET decrepit NAMES libdecrepit decrepit)
+  boringssl_set_target_libs(TARGET ssl NAMES libbsssl libbssl libssl bsssl bssl ssl)
 
 endif()

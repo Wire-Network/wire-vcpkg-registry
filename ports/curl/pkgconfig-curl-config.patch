@@ -1,0 +1,22 @@
+diff --git a/curl-config.in b/curl-config.in
+index ce23519c3..5907d9670 100644
+--- a/curl-config.in
++++ b/curl-config.in
+@@ -155,7 +155,7 @@ while test "$#" -gt 0; do
+       curllibdir=''
+     fi
+     if test '@ENABLE_SHARED@' = 'no'; then
+-      echo "${curllibdir}-lcurl @LIBCURL_PC_LIBS_PRIVATE@"
++      echo "@libdir@/libcurl.@libext@ @LIBCURL_PC_LDFLAGS_PRIVATE@ @CURL_CONFIG_LIBS_PRIVATE@ @LIBCURL_PC_LIBS_PRIVATE@"
+     else
+       echo "${curllibdir}-lcurl"
+     fi
+@@ -167,7 +167,7 @@ while test "$#" -gt 0; do
+ 
+   --static-libs)
+     if test '@ENABLE_STATIC@' != 'no'; then
+-      echo "@libdir@/libcurl.@libext@ @LIBCURL_PC_LDFLAGS_PRIVATE@ @LIBCURL_PC_LIBS_PRIVATE@"
++      echo "@libdir@/libcurl.@libext@ @LIBCURL_PC_LDFLAGS_PRIVATE@ @CURL_CONFIG_LIBS_PRIVATE@ @LIBCURL_PC_LIBS_PRIVATE@"
+     else
+       echo 'curl was built with static libraries disabled' >&2
+       exit 1
