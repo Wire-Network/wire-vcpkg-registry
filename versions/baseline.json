@@ -28,6 +28,10 @@
       "baseline": "8.16.0",
       "port-version": 0
     },
+    "ethash": {
+      "baseline": "1.1.0",
+      "port-version": 0
+    },
     "libsodium": {
       "baseline": "1.0.20-wire",
       "port-version": 0
