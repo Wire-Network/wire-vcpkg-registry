@@ -1,5 +1,8 @@
+set(VCPKG_LIBRARY_LINKAGE static)
+
 set(BOOST_GIT_URL "https://github.com/boostorg/boost.git")
-set(BOOST_COMMIT 564e2ac16907019696cdaba8a93e3588ec596062)
+set(BOOST_VERSION "1.89.0")
+set(BOOST_COMMIT ef7fea34711a189472893b88205b1dd3c275677b) # v1.89.0
 
 cmake_policy(SET CMP0116 OLD) #suppress warning about Boost::xxxx targets not being imported
 
@@ -45,6 +48,13 @@ if(EXISTS "${SOURCE_PATH}")
 endif()
 file(COPY "${BOOST_CLONE_DIR}/" DESTINATION "${SOURCE_PATH}")
 
+configure_file(${CMAKE_CURRENT_LIST_DIR}/boost_dll-CMakeLists.txt ${SOURCE_PATH}/libs/dll/CMakeLists.txt COPYONLY)
+# vcpkg_execute_required_process(
+#   COMMAND ${CMAKE_CURRENT_LIST_DIR}/pre-config.sh ${SOURCE_PATH} ${BOOST_VERSION}
+#   WORKING_DIRECTORY ${CURRENT_PACKAGES_DIR}
+#   LOGNAME pre-config-boost-files
+# )
+
 # NOW CONFIGURE AND INSTALL USING CMAKE
 vcpkg_cmake_configure(
   SOURCE_PATH ${SOURCE_PATH}
@@ -52,6 +62,9 @@ vcpkg_cmake_configure(
   # TODO: Not used? @jon
   -DCMAKE_CXX_COMPILER=${GXX}
   -DCMAKE_C_COMPILER=${GCC}
+  -DBoost_DEBUG=ON
+  -DBoost_VERBOSE=ON
+  -DBOOST_DLL_USE_STD_FS=ON
   -DBoost_USE_MULTITHREADED=ON
   -DBoost_USE_STATIC_LIBS=ON
   -DBOOST_EXCLUDE_LIBRARIES="mysql;cobalt"
@@ -80,7 +93,7 @@ vcpkg_copy_pdbs()
 # This cleanup script removes the references to
 # `numeric_ublas` from the `accumulators` component
 vcpkg_execute_required_process(
-  COMMAND ${CMAKE_CURRENT_LIST_DIR}/post-install-cmake-config.sh ${CURRENT_PACKAGES_DIR} 1.83.0
+  COMMAND ${CMAKE_CURRENT_LIST_DIR}/post-install-cmake-config.sh ${CURRENT_PACKAGES_DIR} ${BOOST_VERSION}
   WORKING_DIRECTORY ${CURRENT_PACKAGES_DIR}
   LOGNAME post-install-cmake-boost-files
 )
