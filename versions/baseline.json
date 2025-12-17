@@ -45,7 +45,7 @@
       "port-version": 0
     },
     "wire-sys-vm": {
-      "baseline": "1.0.1-rc1",
+      "baseline": "1.0.2",
       "port-version": 0
     }
   }
