@@ -17,15 +17,28 @@ cmakeLibDir="${installPrefix}/lib/cmake"
 cmakeDebugLibDir="${installPrefix}/debug/lib/cmake"
 
 for libDir in "${cmakeLibDir}" "${cmakeDebugLibDir}"; do
-    echo "CMake config dir: ${cmakeLibDir}"
+    echo "CMake config dir: ${libDir}"
     if [ ! -d "${libDir}" ]; then
         echo "Warning: CMake config dir does not exist: ${libDir}"
         continue
     fi
 
     pushd "${libDir}"
+
+    # Remove numeric_ublas references from accumulators config
     cd "boost_accumulators-${ver}"
     sed -i '/find_dependency(boost_numeric_ublas .* EXACT)/d' boost_accumulators-config.cmake
+    cd "${libDir}"
+
+    # Fix iostreams: replace zstd::libzstd_shared with zstd::libzstd_static
+    # Boost 1.89.0 CMake build incorrectly hardcodes the shared zstd target,
+    # but we build with VCPKG_LIBRARY_LINKAGE=static so only the static target exists
+    iostreamsTargetsDir="boost_iostreams-${ver}-static"
+    if [ -d "${iostreamsTargetsDir}" ]; then
+        sed -i 's/zstd::libzstd_shared/zstd::libzstd_static/g' "${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
+        echo "Fixed zstd target reference in ${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
+    fi
+
     popd
 
 done
