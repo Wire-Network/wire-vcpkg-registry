@@ -1,14 +1,22 @@
 {
   "name": "wire-sys-vm",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Wire VM for contract execution. Originally part of eos",
-  "homepage": "https://github.com/Wire-Network/wire-eos-vm",
+  "homepage": "https://github.com/Wire-Network/eos-vm",
   "supports": "x86 | x64 | arm | arm64",
   "dependencies": [
     {
       "name": "catch2",
       "features": [
         "no-posix-signals"
+      ]
+    },
+    {
+      "name": "llvm",
+      "features": [
+        "enable-rtti",
+        "target-aarch64",
+        "target-x86"
       ]
     },
     "softfloat",
