@@ -8,8 +8,6 @@ cmake_policy(SET CMP0116 OLD) #suppress warning about Boost::xxxx targets not be
 
 # FIND GIT EXECUTABLE
 find_program(GIT git REQUIRED)
-find_program(GCC gcc-10 REQUIRED)
-find_program(GXX g++-10 REQUIRED)
 
 # SETUP CLONE DIRECTORY
 set(BOOST_CLONE_DIR "${DOWNLOADS}/boost-src-${BOOST_COMMIT}")
@@ -59,9 +57,6 @@ configure_file(${CMAKE_CURRENT_LIST_DIR}/boost_dll-CMakeLists.txt ${SOURCE_PATH}
 vcpkg_cmake_configure(
   SOURCE_PATH ${SOURCE_PATH}
   OPTIONS
-  # TODO: Not used? @jon
-  -DCMAKE_CXX_COMPILER=${GXX}
-  -DCMAKE_C_COMPILER=${GCC}
   -DBoost_DEBUG=ON
   -DBoost_VERBOSE=ON
   -DBOOST_DLL_USE_STD_FS=ON
