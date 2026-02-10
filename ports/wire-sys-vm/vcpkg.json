@@ -13,6 +13,7 @@
     },
     {
       "name": "llvm",
+      "default-features": false,
       "features": [
         "enable-rtti",
         "target-aarch64",
