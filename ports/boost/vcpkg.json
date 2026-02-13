@@ -1,6 +1,7 @@
 {
   "name": "boost",
   "version": "1.89.0",
+  "port-version": 1,
   "description": "Peer-reviewed portable C++ source libraries",
   "homepage": "https://github.com/boostorg/boost",
   "supports": "!uwp",
