@@ -39,6 +39,15 @@ for libDir in "${cmakeLibDir}" "${cmakeDebugLibDir}"; do
         echo "Fixed zstd target reference in ${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
     fi
 
+    # Fix uuid: replace bare "atomic" (→ -latomic shared) with empty string.
+    # The atomic symbols come from our static libatomic.a linked elsewhere;
+    # the raw library name causes the linker to pull in libatomic.so at runtime.
+    uuidTargetsDir="boost_uuid-${ver}"
+    if [ -d "${uuidTargetsDir}" ]; then
+        sed -i 's/;atomic"/"/g' "${uuidTargetsDir}/boost_uuid-targets.cmake"
+        echo "Removed bare atomic link dep from ${uuidTargetsDir}/boost_uuid-targets.cmake"
+    fi
+
     popd
 
 done
