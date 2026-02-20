@@ -80,7 +80,7 @@ configure_file(
 #endif()
 
 ## COPY LICENSE
-#file(INSTALL ${SOURCE_PATH}/LICENSE_1_0.txt DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/src/LICENSE")
 
 # COPY PDB FILES
 vcpkg_copy_pdbs()
