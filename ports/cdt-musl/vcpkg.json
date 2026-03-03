@@ -1,0 +1,5 @@
+{
+  "name": "cdt-musl",
+  "version": "1.1.18",
+  "description": "musl libc source patched for CDT WebAssembly smart contracts"
+}

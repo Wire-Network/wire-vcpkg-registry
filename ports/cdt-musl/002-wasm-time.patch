@@ -1,0 +1,20 @@
+--- musl-orig/src/time/time.c	2026-03-03 16:47:44.021512604 -0600
++++ musl-patched/src/time/time.c	2026-03-03 16:48:32.653669692 -0600
+@@ -1,12 +1,11 @@
+ #include <time.h>
+-#include "syscall.h"
+ 
+-int __clock_gettime(clockid_t, struct timespec *);
++__attribute__((sysio_wasm_import))
++extern uint64_t current_time();
+ 
+ time_t time(time_t *t)
+ {
+-	struct timespec ts;
+-	__clock_gettime(CLOCK_REALTIME, &ts);
+-	if (t) *t = ts.tv_sec;
+-	return ts.tv_sec;
++	time_t elapsed = (time_t)(current_time() / 1000000ll);
++	if (t) *t = elapsed;
++	return elapsed;
+ }
