@@ -1,0 +1,36 @@
+diff -ruN musl-orig/arch/sysio/atomic_arch.h musl-patched/arch/sysio/atomic_arch.h
+--- musl-orig/arch/sysio/atomic_arch.h	1969-12-31 18:00:00.000000000 -0600
++++ musl-patched/arch/sysio/atomic_arch.h	2026-03-03 16:48:10.837786782 -0600
+@@ -0,0 +1,19 @@
++#pragma once
++
++#define a_ll a_ll
++static inline int a_ll(volatile int *p)
++{
++   return *p;
++}
++
++#define a_sc a_sc
++static inline int a_sc(volatile int *p, int v)
++{
++   *p = v;
++   return 1;
++}
++
++#define a_barrier a_barrier
++static inline void a_barrier()
++{
++}
+diff -ruN musl-orig/arch/sysio/pthread_arch.h musl-patched/arch/sysio/pthread_arch.h
+--- musl-orig/arch/sysio/pthread_arch.h	1969-12-31 18:00:00.000000000 -0600
++++ musl-patched/arch/sysio/pthread_arch.h	2026-03-03 16:48:10.837786782 -0600
+@@ -0,0 +1,9 @@
++#pragma once
++
++typedef struct pthread* pthread_t;
++
++static inline struct pthread *__pthread_self()
++{
++   static struct pthread self = { 0 };
++   return &self;
++}
