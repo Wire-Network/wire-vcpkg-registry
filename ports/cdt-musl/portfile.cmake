@@ -6,9 +6,7 @@ vcpkg_download_distfile(ARCHIVE
 
 vcpkg_extract_source_archive(SOURCE_PATH ARCHIVE "${ARCHIVE}"
     PATCHES
-        001-arch-sysio.patch
-        002-wasm-time.patch
-        003-wasm-printf.patch
+        001-wasm-contract-support.patch
 )
 
 # Install patched source tree (cross-compiled later by CDT build system)
