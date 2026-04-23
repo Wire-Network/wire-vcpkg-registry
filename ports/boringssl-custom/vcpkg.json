@@ -1,7 +1,7 @@
 {
   "name": "boringssl-custom",
-  "version": "1.0.1",
-  "description": "Custom BoringSSL port for wire.network. Derived from the LEAP build process",
+  "version": "1.0.2",
+  "description": "Custom BoringSSL port for wire.network; pinned upstream with decrepit installed and libbs prefix on crypto.",
   "homepage": "https://wire.network/",
   "supports": "!uwp",
   "dependencies": [

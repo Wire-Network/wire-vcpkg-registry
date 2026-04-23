@@ -1,34 +1,34 @@
-include(GNUInstallDirs)
 
-add_compile_definitions(BORINGSSL_IMPLEMENTATION=1)
-add_compile_definitions(OPENSSL_EXPORT=1)
+# ----------------------------------------------------------------------------
+# Wire-network additions appended to upstream BoringSSL CMakeLists.txt.
+# See portfile.cmake for rationale.
+# ----------------------------------------------------------------------------
 
+# Upstream's -Werror is tuned for its own CI matrix and trips newer compilers.
+# Applied to every upstream-defined library target we may transitively pull in.
 target_compile_options(fipsmodule PRIVATE -Wno-error)
-target_compile_options(crypto PRIVATE -Wno-error)
-target_compile_options(decrepit PRIVATE -Wno-error)
-target_compile_options(ssl PRIVATE -Wno-error)
+target_compile_options(crypto     PRIVATE -Wno-error)
+target_compile_options(decrepit   PRIVATE -Wno-error)
+target_compile_options(ssl        PRIVATE -Wno-error)
+target_compile_options(pki        PRIVATE -Wno-error)
 
-#paranoia for when a dependent library depends on openssl (such as libcurl)
+# Hidden visibility: when a transitive dep (notably libcurl built with openssl
+# support) gets linked into the same binary, this prevents our symbols from
+# being preempted by a system libcrypto that happens to be loaded first.
 set_target_properties(fipsmodule PROPERTIES C_VISIBILITY_PRESET hidden)
-set_target_properties(crypto PROPERTIES C_VISIBILITY_PRESET hidden)
-set_target_properties(decrepit PROPERTIES C_VISIBILITY_PRESET hidden)
-set_target_properties(ssl PROPERTIES C_VISIBILITY_PRESET hidden)
+set_target_properties(crypto     PROPERTIES C_VISIBILITY_PRESET hidden)
+set_target_properties(decrepit   PROPERTIES C_VISIBILITY_PRESET hidden)
+set_target_properties(ssl        PROPERTIES C_VISIBILITY_PRESET hidden)
 
-add_library(boringssl INTERFACE)
-target_link_libraries(boringssl INTERFACE crypto decrepit ssl)
-target_include_directories(boringssl INTERFACE src/include)
-
-# avoid conflict with system lib
+# Rename the crypto archive to libbscrypto.a. Ssl is left as libssl.a; no
+# widespread system-libssl.a collision in practice, and the consumer-side
+# Config.cmake accepts either spelling.
 set_target_properties(crypto PROPERTIES PREFIX libbs)
 
-install(TARGETS crypto decrepit fipsmodule ssl
+# Decrepit is defined by upstream (add_library(decrepit ...)) but not listed
+# in upstream's install(TARGETS crypto ssl ...). Install it so find_library()
+# in boringssl-customConfig.cmake can locate libdecrepit.a.
+install(TARGETS decrepit
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-
-install(
-  DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/include/"
-  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-)
-
-# TODO: Generate cmake config files for boringssl
