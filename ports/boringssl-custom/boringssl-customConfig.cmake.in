@@ -62,4 +62,13 @@ if(NOT TARGET boringssl::crypto OR NOT TARGET boringssl::decrepit OR NOT TARGET 
   boringssl_set_target_libs(TARGET decrepit NAMES libdecrepit decrepit)
   boringssl_set_target_libs(TARGET ssl NAMES libbsssl libbssl libssl bsssl bssl ssl)
 
+  # Mirror upstream's target_link_libraries(decrepit ssl crypto) and
+  # target_link_libraries(ssl crypto). This propagates through cmake's topological
+  # sort so a consumer writing `target_link_libraries(x PRIVATE boringssl::ssl
+  # boringssl::crypto boringssl::decrepit)` ends up with libdecrepit ahead of
+  # libcrypto on the ld.bfd command line, satisfying static archive resolution
+  # order (decrepit/cfb/cfb.cc calls AES_set_encrypt_key which lives in crypto).
+  set_target_properties(boringssl::ssl      PROPERTIES INTERFACE_LINK_LIBRARIES "boringssl::crypto")
+  set_target_properties(boringssl::decrepit PROPERTIES INTERFACE_LINK_LIBRARIES "boringssl::ssl;boringssl::crypto")
+
 endif()
