@@ -64,5 +64,38 @@ configure_file(
   @ONLY
 )
 
+# Install pkg-config metadata for libssl and libcrypto. Required so consumers
+# (notably the vcpkg curl port's dependencies.patch, which calls
+# `pkg_check_modules(REQUIRED libssl)` / `pkg_check_modules(REQUIRED libcrypto)`)
+# resolve to our boringssl-custom static archives instead of falling back to a
+# system openssl install (libssl-dev on Ubuntu). The crypto archive is renamed
+# libbscrypto.a (see boringssl-customCMakeLists.txt.cmake), so libcrypto.pc
+# emits `-lbscrypto`. ${pcfiledir} keeps the .pc files relocatable across the
+# vcpkg install / consumer trees.
+file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/lib/pkgconfig")
+configure_file(
+  "${CMAKE_CURRENT_LIST_DIR}/libssl.pc.in"
+  "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/libssl.pc"
+  @ONLY
+)
+configure_file(
+  "${CMAKE_CURRENT_LIST_DIR}/libcrypto.pc.in"
+  "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/libcrypto.pc"
+  @ONLY
+)
+if(NOT DEFINED VCPKG_BUILD_TYPE)
+  file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
+  configure_file(
+    "${CMAKE_CURRENT_LIST_DIR}/libssl.pc.in"
+    "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/libssl.pc"
+    @ONLY
+  )
+  configure_file(
+    "${CMAKE_CURRENT_LIST_DIR}/libcrypto.pc.in"
+    "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/libcrypto.pc"
+    @ONLY
+  )
+endif()
+
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
 vcpkg_copy_pdbs()
