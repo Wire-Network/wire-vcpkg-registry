@@ -1,7 +1,7 @@
 {
   "name": "boringssl-custom",
-  "version": "1.0.2",
-  "description": "Custom BoringSSL port for wire.network; pinned upstream with decrepit installed and libbs prefix on crypto.",
+  "version": "1.0.3",
+  "description": "Custom BoringSSL port for wire.network; pinned upstream with decrepit installed and libbs prefix on crypto. Installs libssl.pc/libcrypto.pc so consumers do not fall back to system libssl-dev for pkg-config.",
   "homepage": "https://wire.network/",
   "supports": "!uwp",
   "dependencies": [
