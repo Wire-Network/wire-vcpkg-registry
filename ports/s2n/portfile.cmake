@@ -30,7 +30,7 @@ vcpkg_cmake_install()
 vcpkg_copy_pdbs()
 vcpkg_cmake_config_fixup(CONFIG_PATH lib/s2n/cmake)
 
-if(BUILD_TESTING)
+if ("tests" IN_LIST FEATURES)
     message(STATUS "Testing")
     vcpkg_cmake_build(TARGET test LOGFILE_BASE test)
 endif()

@@ -41,7 +41,7 @@ vcpkg_cmake_configure(
         "-DFORCE_SHARED_CRT=${FORCE_SHARED_CRT}"
         "-DBUILD_ONLY=${targets}"
         "-DBUILD_DEPS=OFF"
-        "-DBUILD_SHARED_LIBS=OFF"
+        "-DBUILD_SHARED_LIBS=${VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic"}"
         "-DAWS_SDK_WARNINGS_ARE_ERRORS=OFF"
         "-DCMAKE_INSTALL_RPATH=${rpath}"
         "-DCMAKE_MODULE_PATH=${CURRENT_INSTALLED_DIR}/share/aws-c-common" # use extra cmake files
