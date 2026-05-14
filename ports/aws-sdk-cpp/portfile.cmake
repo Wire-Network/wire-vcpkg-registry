@@ -14,6 +14,7 @@ vcpkg_from_github(
 )
 
 string(COMPARE EQUAL "${VCPKG_CRT_LINKAGE}" "dynamic" FORCE_SHARED_CRT)
+string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "dynamic" BUILD_SHARED_LIBS_OPTION)
 
 set(EXTRA_ARGS "")
 if(VCPKG_TARGET_IS_OSX OR VCPKG_TARGET_IS_IOS)
@@ -41,7 +42,7 @@ vcpkg_cmake_configure(
         "-DFORCE_SHARED_CRT=${FORCE_SHARED_CRT}"
         "-DBUILD_ONLY=${targets}"
         "-DBUILD_DEPS=OFF"
-        "-DBUILD_SHARED_LIBS=${VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic"}"
+        "-DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS_OPTION}"
         "-DAWS_SDK_WARNINGS_ARE_ERRORS=OFF"
         "-DCMAKE_INSTALL_RPATH=${rpath}"
         "-DCMAKE_MODULE_PATH=${CURRENT_INSTALLED_DIR}/share/aws-c-common" # use extra cmake files
