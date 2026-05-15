@@ -1,12 +1,14 @@
 The package @PORT@:@TARGET_TRIPLET@ provides CMake targets:
 
-    When using AWSSDK, AWSSDK_ROOT_DIR must be defined by the user.
-    find_package(AWSSDK CONFIG COMPONENTS core dynamodb kinesis s3 REQUIRED)
-    target_include_directories(main PRIVATE ${AWSSDK_INCLUDE_DIRS})
-    target_link_libraries(main PRIVATE ${AWSSDK_LIBRARIES})
-    
-    OR
-    
-    find_package(aws-cpp-sdk-core REQUIRED)
-    target_include_directories(main PRIVATE aws-cpp-sdk-core)
-    target_link_libraries(main PRIVATE aws-cpp-sdk-core)
+    Recommended (wire-vcpkg-registry overlay): use the per-service configs.
+    They route TLS/crypto through aws-crt-cpp -> aws-c-cal -> boringssl-custom
+    and do not pull in the legacy AWSSDK platformDeps shim.
+
+    find_package(aws-cpp-sdk-core CONFIG REQUIRED)
+    find_package(aws-cpp-sdk-kms  CONFIG REQUIRED)  # any selected service
+    target_link_libraries(main PRIVATE aws-cpp-sdk-core aws-cpp-sdk-kms)
+
+    The legacy umbrella `find_package(AWSSDK CONFIG ...)` is still installed
+    for back-compat, but its platformDeps.cmake intentionally no longer
+    exports `LibCrypto_*` cache variables in this overlay -- consumers
+    relying on those must switch to the per-service configs above.

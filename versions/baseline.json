@@ -6,7 +6,7 @@
     },
     "aws-sdk-cpp": {
       "baseline": "1.11.665",
-      "port-version": 0
+      "port-version": 1
     },
     "bls12-381": {
       "baseline": "1.0.0-wire",
@@ -34,7 +34,7 @@
     },
     "curl": {
       "baseline": "8.16.0",
-      "port-version": 0
+      "port-version": 1
     },
     "ethash": {
       "baseline": "1.1.0",
