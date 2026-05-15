@@ -1,0 +1,22 @@
+{
+  "name": "aws-c-cal",
+  "version": "0.9.3",
+  "description": "C99 wrapper for cryptography primitives. wire-vcpkg-registry overlay: libcrypto comes from boringssl-custom (drop-in OpenSSL ABI shim) instead of upstream openssl, so the project's TLS stack stays single-source.",
+  "homepage": "https://github.com/awslabs/aws-c-cal",
+  "license": "Apache-2.0",
+  "dependencies": [
+    "aws-c-common",
+    {
+      "name": "boringssl-custom",
+      "platform": "!windows & !osx"
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

@@ -1,5 +1,13 @@
 {
   "default": {
+    "aws-c-cal": {
+      "baseline": "0.9.3",
+      "port-version": 0
+    },
+    "aws-sdk-cpp": {
+      "baseline": "1.11.665",
+      "port-version": 0
+    },
     "bls12-381": {
       "baseline": "1.0.0-wire",
       "port-version": 0
@@ -14,7 +22,7 @@
     },
     "boringssl-custom": {
       "baseline": "1.0.3",
-      "port-version": 0
+      "port-version": 1
     },
     "catch2": {
       "baseline": "3.10.0",
@@ -26,7 +34,7 @@
     },
     "curl": {
       "baseline": "8.16.0",
-      "port-version": 0
+      "port-version": 1
     },
     "ethash": {
       "baseline": "1.1.0",
@@ -34,6 +42,10 @@
     },
     "libsodium": {
       "baseline": "1.0.20-wire",
+      "port-version": 0
+    },
+    "s2n": {
+      "baseline": "1.5.27",
       "port-version": 0
     },
     "secp256k1-internal": {

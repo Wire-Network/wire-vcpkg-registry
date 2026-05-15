@@ -1,0 +1,16 @@
+diff --git a/CMake/curl-config.cmake.in b/CMake/curl-config.cmake.in
+--- a/CMake/curl-config.cmake.in
++++ b/CMake/curl-config.cmake.in
+@@ -26,11 +26,7 @@
+
+ include(CMakeFindDependencyMacro)
+ if("@USE_OPENSSL@")
+-  if("@OPENSSL_VERSION_MAJOR@")
+-    find_dependency(OpenSSL "@OPENSSL_VERSION_MAJOR@")
+-  else()
+-    find_dependency(OpenSSL)
+-  endif()
++  find_dependency(boringssl-custom)
+ endif()
+ if("@HAVE_LIBZ@")
+   find_dependency(ZLIB "@ZLIB_VERSION_MAJOR@")

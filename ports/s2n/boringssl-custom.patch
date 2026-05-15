@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -264,15 +264,9 @@ if (S2N_INTERN_LIBCRYPTO)
+     set(BUILD_SHARED_LIBS OFF)
+ endif()
+
+-# Work around target differences
+-if (TARGET crypto)
+-    message(STATUS "S2N found target: crypto")
+-    set(LINK_LIB "crypto")
+-else()
+-    find_package(crypto REQUIRED)
+-    message(STATUS "Using libcrypto from the cmake path")
+-    set(LINK_LIB "AWS::crypto")
+-endif()
++find_package(boringssl-custom REQUIRED)
++message(STATUS "Using libcrypto from boringssl-custom")
++set(LINK_LIB "boringssl::crypto")
+
+ if (S2N_INTERN_LIBCRYPTO)
+     # Restore the old BUILD_SHARED_LIBS value
