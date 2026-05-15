@@ -1,7 +1,7 @@
 vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL https://github.com/Wire-Network/eos-vm
-    REF a89d24a3cd4a2fc634ac81c5edfdc88c0bf283e3
+    REF 31ad8527c0d9f124e7606d0899ab0477c9965551
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS OPTIONS
@@ -24,5 +24,14 @@ vcpkg_cmake_install()
 
 vcpkg_copy_pdbs()
 
-file(INSTALL "${SOURCE_PATH}/LICENSE.md" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(REMOVE_RECURSE
+    "${CURRENT_PACKAGES_DIR}/debug/include"
+    "${CURRENT_PACKAGES_DIR}/debug/share"
+)
 
+file(GLOB_RECURSE debug_contents "${CURRENT_PACKAGES_DIR}/debug/*")
+if(NOT debug_contents)
+    file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug")
+endif()
+
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.md")
