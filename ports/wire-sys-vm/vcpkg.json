@@ -1,32 +1,14 @@
 {
   "name": "wire-sys-vm",
   "version": "1.1.1",
+  "port-version": 1,
   "description": "Wire VM for contract execution. Originally part of eos",
   "homepage": "https://github.com/Wire-Network/eos-vm",
   "supports": "x86 | x64 | arm | arm64",
   "dependencies": [
-    {
-      "name": "catch2",
-      "features": [
-        "no-posix-signals"
-      ]
-    },
-    {
-      "name": "llvm",
-      "default-features": false,
-      "features": [
-        "enable-rtti",
-        "target-aarch64",
-        "target-x86"
-      ]
-    },
     "softfloat",
     {
       "name": "vcpkg-cmake",
-      "host": true
-    },
-    {
-      "name": "vcpkg-cmake-config",
       "host": true
     }
   ],
