@@ -16,6 +16,10 @@
       "baseline": "2.0.2",
       "port-version": 0
     },
+    "boost": {
+      "baseline": "1.89.0",
+      "port-version": 1
+    },
     "boringssl-custom": {
       "baseline": "1.0.3",
       "port-version": 1
