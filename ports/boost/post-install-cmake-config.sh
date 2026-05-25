@@ -26,16 +26,19 @@ for libDir in "${cmakeLibDir}" "${cmakeDebugLibDir}"; do
     pushd "${libDir}"
 
     # Remove numeric_ublas references from accumulators config
-    cd "boost_accumulators-${ver}"
-    sed -i '/find_dependency(boost_numeric_ublas .* EXACT)/d' boost_accumulators-config.cmake
-    cd "${libDir}"
+    accumulatorsConfigDir="boost_accumulators-${ver}"
+    if [ -d "${accumulatorsConfigDir}" ]; then
+        cd "${accumulatorsConfigDir}"
+        perl -0pi -e 's/^.*find_dependency\(boost_numeric_ublas .* EXACT\).*\n//mg' boost_accumulators-config.cmake
+        cd "${libDir}"
+    fi
 
     # Fix iostreams: replace zstd::libzstd_shared with zstd::libzstd_static
     # Boost 1.89.0 CMake build incorrectly hardcodes the shared zstd target,
     # but we build with VCPKG_LIBRARY_LINKAGE=static so only the static target exists
     iostreamsTargetsDir="boost_iostreams-${ver}-static"
     if [ -d "${iostreamsTargetsDir}" ]; then
-        sed -i 's/zstd::libzstd_shared/zstd::libzstd_static/g' "${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
+        perl -pi -e 's/zstd::libzstd_shared/zstd::libzstd_static/g' "${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
         echo "Fixed zstd target reference in ${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
     fi
 
@@ -45,11 +48,10 @@ for libDir in "${cmakeLibDir}" "${cmakeDebugLibDir}"; do
     # own static libatomic.a via LIBATOMIC_STATIC, so the bare name just
     # causes an unwanted NEEDED entry for libatomic.so at runtime.
     grep -rl ';atomic"' . 2>/dev/null | while read -r f; do
-        sed -i 's/;atomic"/"/g' "$f"
+        perl -pi -e 's/;atomic"/"/g' "$f"
         echo "Removed bare atomic link dep from $f"
     done
 
     popd
 
 done
-

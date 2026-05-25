@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.15)
+
 project(secp256k1-internal)
 
 include(GNUInstallDirs)
