@@ -34,7 +34,7 @@ for libDir in "${cmakeLibDir}" "${cmakeDebugLibDir}"; do
     fi
 
     # Fix iostreams: replace zstd::libzstd_shared with zstd::libzstd_static
-    # Boost 1.89.0 CMake build incorrectly hardcodes the shared zstd target,
+    # Boost's CMake build incorrectly hardcodes the shared zstd target,
     # but we build with VCPKG_LIBRARY_LINKAGE=static so only the static target exists
     iostreamsTargetsDir="boost_iostreams-${ver}-static"
     if [ -d "${iostreamsTargetsDir}" ]; then

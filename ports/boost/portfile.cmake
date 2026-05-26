@@ -1,8 +1,10 @@
 set(VCPKG_LIBRARY_LINKAGE static)
+set(VCPKG_POLICY_SKIP_LIB_CMAKE_MERGE_CHECK enabled)
+set(VCPKG_POLICY_SKIP_MISPLACED_CMAKE_FILES_CHECK enabled)
 
 set(BOOST_GIT_URL "https://github.com/boostorg/boost.git")
-set(BOOST_VERSION "1.89.0")
-set(BOOST_COMMIT ef7fea34711a189472893b88205b1dd3c275677b) # v1.89.0
+set(BOOST_VERSION "1.91.0")
+set(BOOST_COMMIT 1a80576db6b70828803819fb6925132193bc5d0e) # v1.91.0
 
 cmake_policy(SET CMP0116 OLD) #suppress warning about Boost::xxxx targets not being imported
 
@@ -60,8 +62,6 @@ vcpkg_cmake_configure(
   -DBoost_DEBUG=ON
   -DBoost_VERBOSE=ON
   -DBOOST_DLL_USE_STD_FS=ON
-  -DBoost_USE_MULTITHREADED=ON
-  -DBoost_USE_STATIC_LIBS=ON
   -DBOOST_EXCLUDE_LIBRARIES="mysql;cobalt"
   -DBUILD_TESTING=OFF
 )
