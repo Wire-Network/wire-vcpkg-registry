@@ -1,7 +1,7 @@
 vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL https://github.com/Wire-Network/berkeley-softfloat-3
-    REF 31f071938137b44d794665552d5b0092c1e10306
+    REF 57c9d941d796d283691e1d0e12faee28bebe226e
 )
 
 vcpkg_cmake_configure(
@@ -20,4 +20,3 @@ vcpkg_cmake_config_fixup(CONFIG_PATH "share/${PORT}" PACKAGE_NAME ${PORT})
 vcpkg_copy_pdbs()
 
 file(INSTALL "${SOURCE_PATH}/COPYING.txt" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
-

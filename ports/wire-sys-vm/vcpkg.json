@@ -1,10 +1,13 @@
 {
   "name": "wire-sys-vm",
   "version": "1.1.1",
-  "port-version": 1,
+  "port-version": 3,
   "description": "Wire VM for contract execution. Originally part of eos",
   "homepage": "https://github.com/Wire-Network/eos-vm",
   "supports": "x86 | x64 | arm | arm64",
+  "default-features": [
+    "softfloat-skip-install"
+  ],
   "dependencies": [
     "softfloat",
     {

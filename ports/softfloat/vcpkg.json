@@ -1,6 +1,7 @@
 {
   "name": "softfloat",
   "version": "3.0.0",
+  "port-version": 1,
   "description": "Berkeley SoftFloat 3 - Software IEC/IEEE Floating-Point Arithmetic Package",
   "homepage": "https://github.com/Wire-Network/berkeley-softfloat-3",
   "supports": "x86 | x64 | arm | arm64 | wasm32",

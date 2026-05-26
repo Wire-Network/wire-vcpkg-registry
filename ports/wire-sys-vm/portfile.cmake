@@ -1,7 +1,7 @@
 vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL https://github.com/Wire-Network/eos-vm
-    REF 31ad8527c0d9f124e7606d0899ab0477c9965551
+    REF 72a9985a744fdb82e304ffb8bd4b1b7ba6c4610e
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS OPTIONS
