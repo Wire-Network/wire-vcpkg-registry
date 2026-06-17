@@ -10,6 +10,7 @@ cmake_policy(SET CMP0116 OLD) #suppress warning about Boost::xxxx targets not be
 find_program(GIT git REQUIRED)
 
 # SETUP CLONE DIRECTORY
+file(MAKE_DIRECTORY "${DOWNLOADS}")
 set(BOOST_CLONE_DIR "${DOWNLOADS}/boost-src-${BOOST_COMMIT}")
 
 # CHECK IF CLONE ALREADY EXISTS, OTHERWISE CLONE IT
