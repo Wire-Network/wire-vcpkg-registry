@@ -1,51 +1,21 @@
 set(VCPKG_LIBRARY_LINKAGE static)
 
-set(BOOST_GIT_URL "https://github.com/boostorg/boost.git")
 set(BOOST_VERSION "1.89.0")
-set(BOOST_COMMIT ef7fea34711a189472893b88205b1dd3c275677b) # v1.89.0
+set(BOOST_ARCHIVE_NAME "boost-${BOOST_VERSION}-cmake")
 
 cmake_policy(SET CMP0116 OLD) #suppress warning about Boost::xxxx targets not being imported
 
-# FIND GIT EXECUTABLE
-find_program(GIT git REQUIRED)
+vcpkg_download_distfile(BOOST_SOURCE_ARCHIVE
+  URLS "https://github.com/boostorg/boost/releases/download/boost-${BOOST_VERSION}/${BOOST_ARCHIVE_NAME}.tar.xz"
+  FILENAME "${BOOST_ARCHIVE_NAME}.tar.xz"
+  SHA512 4fb7f6fde92762305aad8754d7643cd918dd1f3f67e104e9ab385b18c73178d72a17321354eb203b790b6702f2cf6d725a5d6e2dfbc63b1e35f9eb59fb42ece9
+)
 
-# SETUP CLONE DIRECTORY
-file(MAKE_DIRECTORY "${DOWNLOADS}")
-set(BOOST_CLONE_DIR "${DOWNLOADS}/boost-src-${BOOST_COMMIT}")
-
-# CHECK IF CLONE ALREADY EXISTS, OTHERWISE CLONE IT
-if(NOT EXISTS "${BOOST_CLONE_DIR}/.fetched")
-  message(STATUS "[boost] Cloning super-project (with submodules) @ ${BOOST_COMMIT}")
-  file(REMOVE_RECURSE "${BOOST_CLONE_DIR}")
-  vcpkg_execute_required_process(
-    ALLOW_IN_DOWNLOAD_MODE
-    COMMAND "${GIT}" clone --recurse-submodules --progress "${BOOST_GIT_URL}" "${BOOST_CLONE_DIR}"
-    WORKING_DIRECTORY "${DOWNLOADS}"
-    LOGNAME boost-git-clone
-  )
-  vcpkg_execute_required_process(
-    ALLOW_IN_DOWNLOAD_MODE
-    COMMAND "${GIT}" checkout ${BOOST_COMMIT}
-    WORKING_DIRECTORY "${BOOST_CLONE_DIR}"
-    LOGNAME boost-git-checkout
-  )
-  vcpkg_execute_required_process(
-    ALLOW_IN_DOWNLOAD_MODE
-    COMMAND "${GIT}" submodule update --init --recursive --jobs ${VCPKG_CONCURRENCY}
-    WORKING_DIRECTORY "${BOOST_CLONE_DIR}"
-    LOGNAME boost-git-submodule-update
-  )
-  file(WRITE "${BOOST_CLONE_DIR}/.fetched" "commit=${BOOST_COMMIT}\n")
-else()
-  message(STATUS "[boost] Using cached clone in ${BOOST_CLONE_DIR}")
-endif()
-
-# COPY TO BUILDTREES WORKING SOURCE DIRECTORY
-set(SOURCE_PATH "${CURRENT_BUILDTREES_DIR}/src/boost-${BOOST_COMMIT}")
-if(EXISTS "${SOURCE_PATH}")
-  file(REMOVE_RECURSE "${SOURCE_PATH}")
-endif()
-file(COPY "${BOOST_CLONE_DIR}/" DESTINATION "${SOURCE_PATH}")
+vcpkg_extract_source_archive_ex(
+  OUT_SOURCE_PATH SOURCE_PATH
+  ARCHIVE "${BOOST_SOURCE_ARCHIVE}"
+  REF "${BOOST_ARCHIVE_NAME}"
+)
 
 configure_file(${CMAKE_CURRENT_LIST_DIR}/boost_dll-CMakeLists.txt ${SOURCE_PATH}/libs/dll/CMakeLists.txt COPYONLY)
 # vcpkg_execute_required_process(

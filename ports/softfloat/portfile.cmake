@@ -1,7 +1,8 @@
-vcpkg_from_git(
+vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    URL https://github.com/Wire-Network/berkeley-softfloat-3
+    REPO Wire-Network/berkeley-softfloat-3
     REF 57c9d941d796d283691e1d0e12faee28bebe226e
+    SHA512 acddc3f448c8c60e7f2c2cac54735c1da439528490b38090c80d0acad989e68b7ed44ca29fe353847acdf5b168683516670bef6b8b5051e5237f80ea4ce2979d
 )
 
 vcpkg_cmake_configure(

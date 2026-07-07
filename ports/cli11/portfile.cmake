@@ -1,7 +1,8 @@
-vcpkg_from_git(
+vcpkg_from_github(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL https://github.com/AntelopeIO/CLI11.git
+  REPO AntelopeIO/CLI11
   REF f325cc66b40cf05e35b457561e0fa1adfedfc973
+  SHA512 8a72ee28f011205304fda04e72d52f98718fade3456ba61ccadf23ee62d9d74984684293d5f54cca3aceaabd3513bb85c8816f9a161ad6aed3a2c3008bf4a5ec
   HEAD_REF leap-util-blocklog-refactor
 )
 
