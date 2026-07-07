@@ -1,6 +1,7 @@
 {
   "name": "ethash",
   "version-semver": "1.1.0",
+  "port-version": 1,
   "description": "C/C++ implementation of Ethash and ProgPoW – the Ethereum Proof of Work algorithms.",
   "homepage": "https://github.com/Wire-Network/wire-ethash",
   "license": "Apache-2.0",

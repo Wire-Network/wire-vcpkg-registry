@@ -4,10 +4,11 @@
 # when the upstream tag points to a new commit. To avoid this, we must make sure that we always
 # use a '-RELEASE' tag, since those seem to be fixed to a single commit.
 # See https://github.com/jedisct1/libsodium/issues/1373#issuecomment-2135172301 for more info.
-vcpkg_from_git(
+vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    URL https://github.com/Wire-Network/libsodium.git
+    REPO Wire-Network/libsodium
     REF abd3612f433b795a6ac31a386a75f8f26a479033
+    SHA512 da961ed539beb0bf365cd49e9bc483408f00b19e97396aa5a19262b974028c33b24dfae6352c70a1f8d768e2cf5751385a0b4e3a45aae67c6489085d2b4eb0d5
     HEAD_REF master
     # PATCHES
     #     001-mingw-i386.patch

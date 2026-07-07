@@ -1,9 +1,10 @@
 vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 
-vcpkg_from_git(
+vcpkg_from_github(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL https://github.com/Wire-Network/bn256.git
+  REPO Wire-Network/bn256
   REF a278132c53a1475b09d62351ba1028df36903291
+  SHA512 e86360085dfd8b7fcd144ad005ad38482a90a8adfc793d1b2cadb90fae90719a59294b0ca1458119e772f7cd7b4ade0a36b4775d4874109b6d923ad906dac946
 )
 
 set(EXTRA_OPTIONS)
