@@ -1,1 +1,4 @@
 .vscode/launch.json
+
+# oh-my-claudecode runtime state (operational artifacts, never committed)
+.omc/
