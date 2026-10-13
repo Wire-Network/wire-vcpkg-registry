@@ -2,6 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO Wire-Network/eos-vm
     REF 1589ff7a9890d946b27c9e545944c8e7987a8cab
+    PATCHES clang-libcxx.patch
     SHA512 91a54cf7a43086639a3a172e18032d9ec80a7bdc06b44f98a3f91c46919427c00e37324bab70e213c6764bc7bab390774ef3fb80eaa587284d1a86fe6d0ddc06
 )
 
