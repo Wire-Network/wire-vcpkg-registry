@@ -52,6 +52,10 @@
       "baseline": "6.3.0",
       "port-version": 3
     },
+    "jemalloc": {
+      "baseline": "5.3.0",
+      "port-version": 4
+    },
     "libsodium": {
       "baseline": "1.0.20-wire",
       "port-version": 1
