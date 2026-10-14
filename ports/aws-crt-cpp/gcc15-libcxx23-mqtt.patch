@@ -1,0 +1,30 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,6 +26,26 @@ project("aws-crt-cpp"
+     LANGUAGES CXX C
+     VERSION ${SIMPLE_VERSION})
+ 
++# GCC 15 speculatively devirtualizes nested libc++ 23 std::function calls in
++# this adapter, then fails to inline their always_inline virtual wrappers.
++# Keep the workaround local to the affected translation unit and toolchain.
++if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
++   AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 15
++   AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16)
++    include(CheckCXXSourceCompiles)
++    check_cxx_source_compiles([[
++        #include <version>
++        #if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION < 230000 || _LIBCPP_VERSION >= 240000
++        #error Not libc++ 23
++        #endif
++        int main() { return 0; }
++    ]] AWS_CRT_USES_LIBCXX_23)
++    if(AWS_CRT_USES_LIBCXX_23)
++        set_property(SOURCE source/mqtt/Mqtt5ClientCore.cpp APPEND PROPERTY
++            COMPILE_OPTIONS -fno-devirtualize-speculatively)
++    endif()
++endif()
++
+ include(CTest)
+ include(GNUInstallDirs)
+ include(cmake/EnforceSubmoduleVersions.cmake) # for check_submodule_commit()

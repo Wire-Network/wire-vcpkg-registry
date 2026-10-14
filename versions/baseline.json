@@ -8,6 +8,10 @@
       "baseline": "0.9.3",
       "port-version": 0
     },
+    "aws-crt-cpp": {
+      "baseline": "0.34.5",
+      "port-version": 1
+    },
     "aws-sdk-cpp": {
       "baseline": "1.11.665",
       "port-version": 0
