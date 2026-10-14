@@ -1,7 +1,6 @@
-diff --git a/libs/asio/include/boost/asio/detail/future.hpp b/libs/asio/include/boost/asio/detail/future.hpp
 --- a/libs/asio/include/boost/asio/detail/future.hpp
 +++ b/libs/asio/include/boost/asio/detail/future.hpp
-@@ -21,13 +21,13 @@
+@@ -21,12 +21,12 @@
  // Even though the future header is available, libstdc++ may not implement the
  // std::future class itself. However, we need to have already included the
  // future header to reliably test for _GLIBCXX_HAS_GTHREADS.
