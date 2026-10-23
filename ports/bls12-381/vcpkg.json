@@ -1,7 +1,7 @@
 {
   "name": "bls12-381",
   "version": "1.0.0-wire",
-  "port-version": 1,
+  "port-version": 2,
   "description": "bls12-381 implementation.",
   "homepage": "https://github.com/wire-network/bls12-381",
   "license": "MIT",

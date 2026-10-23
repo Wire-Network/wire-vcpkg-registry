@@ -1,0 +1,21 @@
+diff --git a/Makefile.in b/Makefile.in
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -478,7 +478,7 @@ $(C_SYM_OBJS) $(C_OBJS) $(C_PIC_OBJS) $(C_JET_SYM_OBJS) $(C_JET_OBJS) $(C_TESTLIB_OBJS) $(TESTS_OBJS): %.$(O):
+ 	@mkdir -p $(@D)
+ 	$(CC) $(CFLAGS) -c $(CPPFLAGS) $(CTARGET) $<
+ ifdef CC_MM
+-	@$(CC) -MM $(CPPFLAGS) -MT $@ -o $(@:%.$(O)=%.d) $<
++	@$(CC) $(CFLAGS) -MM $(CPPFLAGS) -MT $@ -o $(@:%.$(O)=%.d) $<
+ endif
+ 
+ $(C_SYMS): %.sym:
+@@ -502,7 +502,7 @@ $(CPP_OBJS) $(CPP_PIC_OBJS) $(TESTS_CPP_OBJS): %.$(O):
+ 	@mkdir -p $(@D)
+ 	$(CXX) $(CXXFLAGS) -c $(CPPFLAGS) $(CTARGET) $<
+ ifdef CC_MM
+-	@$(CXX) -MM $(CPPFLAGS) -MT $@ -o $(@:%.$(O)=%.d) $<
++	@$(CXX) $(CXXFLAGS) -MM $(CPPFLAGS) -MT $@ -o $(@:%.$(O)=%.d) $<
+ endif
+ 
+ ifneq ($(SOREV),$(SO))

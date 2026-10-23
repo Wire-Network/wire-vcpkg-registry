@@ -1,0 +1,18 @@
+--- a/libs/asio/include/boost/asio/detail/future.hpp
++++ b/libs/asio/include/boost/asio/detail/future.hpp
+@@ -21,12 +21,12 @@
+ // Even though the future header is available, libstdc++ may not implement the
+ // std::future class itself. However, we need to have already included the
+ // future header to reliably test for _GLIBCXX_HAS_GTHREADS.
+-#if defined(__GNUC__) && !defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
++#if defined(__GLIBCXX__)
+ # if defined(_GLIBCXX_HAS_GTHREADS)
+ #  define BOOST_ASIO_HAS_STD_FUTURE_CLASS 1
+ # endif // defined(_GLIBCXX_HAS_GTHREADS)
+-#else // defined(__GNUC__) && !defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
++#else // defined(__GLIBCXX__)
+ # define BOOST_ASIO_HAS_STD_FUTURE_CLASS 1
+-#endif // defined(__GNUC__) && !defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
++#endif // defined(__GLIBCXX__)
+ 
+ #endif // BOOST_ASIO_DETAIL_FUTURE_HPP
