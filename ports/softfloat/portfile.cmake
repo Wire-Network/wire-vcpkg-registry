@@ -1,13 +1,15 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO Wire-Network/berkeley-softfloat-3
-    REF 57c9d941d796d283691e1d0e12faee28bebe226e
-    SHA512 acddc3f448c8c60e7f2c2cac54735c1da439528490b38090c80d0acad989e68b7ed44ca29fe353847acdf5b168683516670bef6b8b5051e5237f80ea4ce2979d
+    REF e9bb379fe5692c6cbb68fe077cfa7965dc497175
+    SHA512 0642a9e428fcfd137ec91d9dfde5b1b54102939c2841fb541777ea9ff0ccd0596e6c76cc1a6d0a9ece8f78d5160035fc7742e2aa7abf8fb33d0128485bc35b9b
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH ${SOURCE_PATH}
     GENERATOR "Unix Makefiles"
+    OPTIONS
+        -DBUILD_TESTING=OFF
 )
 
 vcpkg_cmake_install()
