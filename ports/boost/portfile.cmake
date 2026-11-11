@@ -15,6 +15,7 @@ vcpkg_extract_source_archive_ex(
   OUT_SOURCE_PATH SOURCE_PATH
   ARCHIVE "${BOOST_SOURCE_ARCHIVE}"
   REF "${BOOST_ARCHIVE_NAME}"
+  PATCHES asio-future-libcxx.patch
 )
 
 configure_file(${CMAKE_CURRENT_LIST_DIR}/boost_dll-CMakeLists.txt ${SOURCE_PATH}/libs/dll/CMakeLists.txt COPYONLY)

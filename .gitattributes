@@ -1,0 +1,2 @@
+# Unified diffs must preserve their source context whitespace.
+ports/**/*.patch -whitespace
