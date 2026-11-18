@@ -16,6 +16,12 @@ target_include_directories(bls12-381 PRIVATE include)
 set_target_properties(bls12-381 PROPERTIES PUBLIC_HEADER "${BLS12-381_HEADERS}")
 target_compile_features(bls12-381 PUBLIC cxx_std_20)
 
+# arithmetic.s uses ELF directives; Apple and Windows targets use the C++ arithmetic in src/arithmetic.cpp.
+if(CMAKE_SYSTEM_PROCESSOR STREQUAL x86_64 AND NOT APPLE AND NOT WIN32)
+  target_sources(bls12-381 PRIVATE src/arithmetic.s)
+  set_source_files_properties(src/arithmetic.s PROPERTIES COMPILE_FLAGS "-Wno-unused-command-line-argument")
+endif()
+
 install(
   TARGETS bls12-381 
   EXPORT bls12-381-config
