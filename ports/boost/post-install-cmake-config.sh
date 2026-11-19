@@ -1,15 +1,13 @@
 #! /usr/bin/env bash
 set -e
 
-# This cleanup script removes the references to
-# `numeric_ublas` from the `accumulators` component
+# Strips the bare "atomic" link dependency from the installed Boost CMake package configs.
 
-echo "Running post-install script for boost: '${1}' '${2}'"
+echo "Running post-install script for boost: '${1}'"
 installPrefix=${1}
-ver=${2}
 
-if [ -z "${installPrefix}" ] || [ -z "${ver}" ] || [ ! -d "${installPrefix}" ]; then
-    echo "Error: installPrefix or version not provided or installPrefix does not exist."
+if [ -z "${installPrefix}" ] || [ ! -d "${installPrefix}" ]; then
+    echo "Error: installPrefix not provided or does not exist."
     exit 1
 fi
 
@@ -24,23 +22,6 @@ for libDir in "${cmakeLibDir}" "${cmakeDebugLibDir}"; do
     fi
 
     pushd "${libDir}"
-
-    # Remove numeric_ublas references from accumulators config
-    accumulatorsConfigDir="boost_accumulators-${ver}"
-    if [ -d "${accumulatorsConfigDir}" ]; then
-        cd "${accumulatorsConfigDir}"
-        perl -0pi -e 's/^.*find_dependency\(boost_numeric_ublas .* EXACT\).*\n//mg' boost_accumulators-config.cmake
-        cd "${libDir}"
-    fi
-
-    # Fix iostreams: replace zstd::libzstd_shared with zstd::libzstd_static
-    # Boost 1.89.0 CMake build incorrectly hardcodes the shared zstd target,
-    # but we build with VCPKG_LIBRARY_LINKAGE=static so only the static target exists
-    iostreamsTargetsDir="boost_iostreams-${ver}-static"
-    if [ -d "${iostreamsTargetsDir}" ]; then
-        perl -pi -e 's/zstd::libzstd_shared/zstd::libzstd_static/g' "${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
-        echo "Fixed zstd target reference in ${iostreamsTargetsDir}/boost_iostreams-targets.cmake"
-    fi
 
     # Fix all boost targets: strip bare "atomic" link dep (→ -latomic shared).
     # Boost's CMake build detects that libatomic is needed and adds the raw
